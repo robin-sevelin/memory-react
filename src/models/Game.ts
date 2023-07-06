@@ -1,3 +1,5 @@
+import { Card } from './Card';
+
 export class Game {
-  constructor(public cards: string[], public gameOver: boolean) {}
+  constructor(public cards: Card[]) {}
 }

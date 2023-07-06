@@ -1,18 +1,14 @@
+import { Card } from '../models/Card';
 import { AppCard } from './AppCard';
 
 interface IGameProps {
-  cards: string[];
-  onTagCard: (index: number) => void;
+  cards: Card[];
 }
 
-export const AppGame = ({ cards, onTagCard }: IGameProps) => {
-  const tagCard = (index: number) => {
-    onTagCard(index);
-  };
+export const AppGame = ({ cards }: IGameProps) => {
   return (
     <>
-      <h2>hello from game</h2>
-      <AppCard cards={cards} onTagCard={tagCard} />
+      <AppCard cards={cards} />
     </>
   );
 };

@@ -1,20 +1,32 @@
-interface ICardProps {
-  cards: string[];
-  onTagCard: (index: number) => void;
+import { Card } from '../models/Card';
+
+interface IGameProps {
+  cards: Card[];
 }
 
-export const AppCard = ({ cards, onTagCard }: ICardProps) => {
+export const AppCard = ({ cards }: IGameProps) => {
   const handleClick = (index: number) => {
-    onTagCard(index);
+    console.log(index);
   };
+
   const html = cards.map((card, index) => (
-    <div className='card' onClick={() => handleClick(index)} key={index}>
-      {card}
+    <div key={index}>
+      {card.isClicked && (
+        <img src={card.name} className='card' height={300} width={250} />
+      )}
+      {!card.isClicked && (
+        <img
+          onClick={() => handleClick(index)}
+          src='/img/logo.png'
+          className='card'
+          height={300}
+          width={250}
+        />
+      )}
     </div>
   ));
   return (
     <>
-      <h3>hello from card</h3>
       <div className='board'>{html}</div>
     </>
   );

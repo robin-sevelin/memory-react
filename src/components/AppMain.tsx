@@ -1,33 +1,28 @@
 import { useState } from 'react';
-import { Game } from '../models/Game';
+import { Card } from '../models/Card';
 import { AppGame } from './AppGame';
 
 export const AppMain = () => {
-  const [game, setGame] = useState<Game>(new Game(['', '', '', ''], false));
+  const [cards, setCards] = useState<Card[]>([]);
 
-  const handleClick = () => {
-    setGame((prevGame) => ({
-      ...prevGame,
-      gameOver: true,
-    }));
-  };
+  const images = [
+    new Card('/img/bowser.png', false),
+    new Card('/img/mario.png', false),
+    new Card('/img/luigi.png', false),
+    new Card('/img/yoshi.png', false),
+    new Card('/img/link.png', false),
+  ];
 
-  const tagCard = (index: number) => {
-    const clickedCard = [...game.cards];
-    clickedCard[index] = index.toString();
-
-    setGame((prevGame) => ({
-      ...prevGame,
-      cards: clickedCard,
-    }));
+  const shuffleCards = () => {
+    const shuffledCards = [...images, ...images];
+    shuffledCards.sort(() => 0.5 - Math.random());
+    setCards(shuffledCards);
   };
 
   return (
     <main>
-      <h2>main section</h2>
-      <AppGame cards={game.cards} onTagCard={tagCard} />
-      <button onClick={handleClick}>avsluta spelet</button>
-      {game.gameOver && <p>spelet är slut</p>}
+      <AppGame cards={cards} />
+      <button onClick={shuffleCards}>Starta</button>
     </main>
   );
 };
