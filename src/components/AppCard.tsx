@@ -2,26 +2,19 @@ import { Card } from '../models/Card';
 
 interface IGameProps {
   cards: Card[];
+  onFlipCard: (id: number) => void;
 }
 
-export const AppCard = ({ cards }: IGameProps) => {
-  const handleClick = (index: number) => {
-    console.log(index);
+export const AppCard = ({ cards, onFlipCard }: IGameProps) => {
+  const handleClick = (id: number) => {
+    onFlipCard(id);
   };
 
-  const html = cards.map((card, index) => (
-    <div key={index}>
-      {card.isClicked && (
-        <img src={card.name} className='card' height={300} width={250} />
-      )}
+  const html = cards.map((card) => (
+    <div key={card.id}>
+      {card.isClicked && <img src={card.name} className='card' />}
       {!card.isClicked && (
-        <img
-          onClick={() => handleClick(index)}
-          src='/img/logo.png'
-          className='card'
-          height={300}
-          width={250}
-        />
+        <div className='card' onClick={() => handleClick(card.id)}></div>
       )}
     </div>
   ));
