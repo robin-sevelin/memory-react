@@ -29,10 +29,20 @@ main {
   grid-row-gap: 10px;
 }
 
-.card {
+.card-back {
   grid-area: 1 / 1 / 3 / 6;
   height: 270px;
   width: 200px;
   border: 1px solid black;
   cursor: pointer;
+}
+
+.card-front {
+  grid-area: 1 / 1 / 3 / 6;
+  height: 270px;
+  width: 200px;
+  border: 1px solid black;
+  cursor: pointer;
+  background-color: lightblue;
+  position: absolute;
 }

@@ -1,7 +1,8 @@
 export class Card {
   constructor(
     public name: string,
-    public isClicked: boolean,
+    public isMatch: boolean,
+    public isFlipped: boolean,
     public id: number
   ) {}
 }
