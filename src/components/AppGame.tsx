@@ -1,21 +1,18 @@
 import { Card } from '../models/Card';
+
 import { AppCard } from './AppCard';
 
 interface IGameProps {
   cards: Card[];
   turns: number;
-  onFlipCard: (name: string, id: number) => void;
+
+  onFlipCard: (card: Card, index: number) => void;
   onQuitGame: () => void;
 }
 
-export const AppGame = ({
-  cards,
-  onFlipCard,
-  onQuitGame,
-  turns,
-}: IGameProps) => {
-  const flipCard = (name: string, id: number) => {
-    onFlipCard(name, id);
+export const AppGame = ({ cards, onFlipCard, onQuitGame }: IGameProps) => {
+  const flipCard = (card: Card, index: number) => {
+    onFlipCard(card, index);
   };
 
   const handleClick = () => {
@@ -23,7 +20,6 @@ export const AppGame = ({
   };
   return (
     <>
-      <p>Antal försök {turns}</p>
       <AppCard cards={cards} onFlipCard={flipCard} />
       <button onClick={handleClick}>Avsluta</button>
     </>

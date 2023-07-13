@@ -1,3 +1,3 @@
 export class Game {
-  constructor(public gameOver: boolean) {}
+  constructor(public gameStarted: boolean, public hasWinner: boolean) {}
 }

@@ -2,25 +2,27 @@ import { Card } from '../models/Card';
 
 interface IGameProps {
   cards: Card[];
-  onFlipCard: (name: string, id: number) => void;
+
+  onFlipCard: (card: Card, index: number) => void;
 }
 
 export const AppCard = ({ cards, onFlipCard }: IGameProps) => {
-  const handleClick = (name: string, id: number) => {
-    onFlipCard(name, id);
+  const handleClick = (card: Card, index: number) => {
+    onFlipCard(card, index);
   };
 
-  const html = cards.map((card) => (
-    <div key={card.id}>
-      {card.isFlipped ||
-        (card.isMatch && <img src={card.name} alt='' className='card-front' />)}
-
-      <img
-        src='/public/img/SuperMushroom_-_2D_art.svg'
-        alt=''
-        className='card-back'
-        onClick={() => handleClick(card.name, card.id)}
-      />
+  const html = cards.map((card, index) => (
+    <div key={index}>
+      {card.isFlipped || card.isMatch ? (
+        <img src={card.img} alt='card front' className='card' />
+      ) : (
+        <img
+          src='/img/SuperMushroom_-_2D_art.svg'
+          alt='card back'
+          className='card'
+          onClick={() => handleClick(card, index)}
+        />
+      )}
     </div>
   ));
   return (
