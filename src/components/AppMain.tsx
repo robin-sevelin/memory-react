@@ -14,27 +14,25 @@ export const AppMain = () => {
 
   const images: Card[] = [
     { id: 0, img: '/img/bowser.png', isFlipped: false, isMatch: false },
-    { id: 1, img: '/img/link.png', isFlipped: false, isMatch: false },
-    { id: 2, img: '/img/luigi.png', isFlipped: false, isMatch: false },
-    { id: 3, img: '/img/mario.png', isFlipped: false, isMatch: false },
-    { id: 4, img: '/img/yoshi.png', isFlipped: false, isMatch: false },
-    { id: 5, img: '/img/bowser.png', isFlipped: false, isMatch: false },
-    { id: 6, img: '/img/link.png', isFlipped: false, isMatch: false },
-    { id: 7, img: '/img/luigi.png', isFlipped: false, isMatch: false },
-    { id: 8, img: '/img/mario.png', isFlipped: false, isMatch: false },
-    { id: 9, img: '/img/yoshi.png', isFlipped: false, isMatch: false },
+    { id: 0, img: '/img/link.png', isFlipped: false, isMatch: false },
   ];
 
   const [guessOne, setGuessOne] = useState('');
   const [guessTwo, setGuessTwo] = useState('');
+
   const startGame = () => {
-    const newGame = { ...game, gameStarted: true };
+    const newGame = { ...game, gameStarted: true, hasWinner: false };
 
     setGame(newGame);
     shuffleCards();
   };
+
   const shuffleCards = () => {
-    const shuffledCards = [...images].sort(() => Math.random() - 0.5);
+    const shuffledCards = [...images, ...images]
+      .map((image) => {
+        return { ...image, id: Math.random() };
+      })
+      .sort(() => Math.random() - 0.5);
     setCards(shuffledCards);
   };
 
@@ -53,6 +51,8 @@ export const AppMain = () => {
   };
 
   useEffect(() => {
+    console.log(cards);
+    console.log(game);
     if (guessOne !== '' && guessTwo !== '') {
       if (guessOne === guessTwo) {
         setCards(
@@ -67,17 +67,22 @@ export const AppMain = () => {
 
         resetChoice();
       } else {
-        resetCard();
         resetChoice();
+        resetCard();
       }
     }
-    checkWin();
+
+    if (cards.length > 0 && cards.every((card) => card.isMatch === true)) {
+      setGame({ ...game, hasWinner: true });
+    }
   }, [guessOne, guessTwo, cards]);
 
+  console.log(game);
+
   const resetChoice = () => {
-    setTurns(turns + 1);
     setGuessOne('');
     setGuessTwo('');
+    setTurns(turns + 1);
   };
 
   const resetCard = () => {
@@ -87,13 +92,12 @@ export const AppMain = () => {
           return { ...card, isFlipped: false };
         })
       );
-    }, 1000);
+    }, 500);
   };
 
-  const checkWin = () => {
-    if (cards.every(({ isMatch }) => isMatch === true)) {
-      return setGame({ ...game, hasWinner: true });
-    }
+  const restartGame = () => {
+    startGame();
+    setTurns(0);
   };
 
   const quitGame = () => {
@@ -103,9 +107,7 @@ export const AppMain = () => {
 
   return (
     <main>
-      {game.hasWinner && game.gameStarted && (
-        <p>grattis du klarade det på {turns} försök</p>
-      )}
+      {game.hasWinner && <p>Grattis! Du klarade det på {turns} försök.</p>}
       {game.gameStarted && !game.hasWinner && <p>{turns} antal försök</p>}
 
       {game.gameStarted && (
@@ -117,6 +119,7 @@ export const AppMain = () => {
         />
       )}
       {!game.gameStarted && <button onClick={startGame}>Starta</button>}
+      {game.gameStarted && <button onClick={restartGame}>Börja om</button>}
     </main>
   );
 };
