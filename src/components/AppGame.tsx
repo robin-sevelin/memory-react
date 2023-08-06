@@ -20,7 +20,14 @@ export const AppGame = ({ cards, onFlipCard, onQuitGame }: IGameProps) => {
   };
   return (
     <>
-      <AppCard cards={cards} onFlipCard={flipCard} />
+      <div className='board'>
+        {cards.map((card, index) => (
+          <div className='card' key={index}>
+            <AppCard cards={card} index={index} onFlipCard={flipCard} />
+          </div>
+        ))}
+      </div>
+
       <button onClick={handleClick}>Avsluta</button>
     </>
   );

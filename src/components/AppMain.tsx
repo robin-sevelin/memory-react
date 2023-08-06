@@ -15,6 +15,11 @@ export const AppMain = () => {
   const images: Card[] = [
     { id: 0, img: '/img/bowser.png', isFlipped: false, isMatch: false },
     { id: 0, img: '/img/link.png', isFlipped: false, isMatch: false },
+    { id: 0, img: '/img/donkeykong.jpg', isFlipped: false, isMatch: false },
+    { id: 0, img: '/img/luigi.jpg', isFlipped: false, isMatch: false },
+    { id: 0, img: '/img/toad.webp', isFlipped: false, isMatch: false },
+    { id: 0, img: '/img/yoshi.png', isFlipped: false, isMatch: false },
+    { id: 0, img: '/img/peach.png', isFlipped: false, isMatch: false },
   ];
 
   const [guessOne, setGuessOne] = useState('');
@@ -51,8 +56,6 @@ export const AppMain = () => {
   };
 
   useEffect(() => {
-    console.log(cards);
-    console.log(game);
     if (guessOne !== '' && guessTwo !== '') {
       if (guessOne === guessTwo) {
         setCards(
