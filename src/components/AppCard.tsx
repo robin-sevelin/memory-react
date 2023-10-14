@@ -18,6 +18,7 @@ export const AppCard = ({ cards, index, onFlipCard }: IGameProps) => {
         <img src={cards.img} alt='card front' className='card' />
       ) : (
         <img
+          loading='lazy'
           src='/img/SuperMushroom_-_2D_art.svg'
           alt='card back'
           className='card'
